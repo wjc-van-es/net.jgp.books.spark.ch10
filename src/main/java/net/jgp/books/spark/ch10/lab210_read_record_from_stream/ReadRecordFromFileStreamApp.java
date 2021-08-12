@@ -36,7 +36,7 @@ public class ReadRecordFromFileStreamApp {
                 .getOrCreate();
 
         // Specify the record that will be ingested.
-        // Note that the schema much match the record coming from the generator
+        // Note that the schema must match the record coming from the generator
         // (or source)
         StructType recordSchema = new StructType()
                 .add("fname", "string")
@@ -47,8 +47,8 @@ public class ReadRecordFromFileStreamApp {
 
         Dataset<Row> df = spark
                 .readStream()
-                .format("csv")
-                .schema(recordSchema)
+                .format("csv") //Now the format is csv instead of text
+                .schema(recordSchema) //and therefore a record schema matching the records produced by the source is necessary
                 .load(StreamingUtils.getInputDirectory());
 
         StreamingQuery query = df
