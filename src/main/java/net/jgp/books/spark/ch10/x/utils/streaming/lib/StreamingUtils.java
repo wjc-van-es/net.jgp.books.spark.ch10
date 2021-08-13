@@ -40,17 +40,16 @@ public class StreamingUtils {
             this.inputDirectory = "C:\\TEMP\\";
         } else {
             this.inputDirectory = System.getProperty("user.home")
-  //                  + File.separator
-            + "/tmp/";
+                    + File.separator
+                    + "tmp"
+                    + File.separator;
         }
         this.inputDirectory +=
                 "streaming" + File.separator + "in" + File.separator;
         createInputDirectory(this.inputDirectory);
-        this.inputSubDirectory1 += this.inputDirectory + File.separator + "s1"
-                + File.separator;
+        this.inputSubDirectory1 = this.inputDirectory  + "s1" + File.separator;
         createInputDirectory(this.inputSubDirectory1);
-        this.inputSubDirectory2 += this.inputDirectory + File.separator + "s2"
-                + File.separator;
+        this.inputSubDirectory2 = this.inputDirectory  + "s2" + File.separator;
         createInputDirectory(this.inputSubDirectory2);
     }
 

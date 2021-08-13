@@ -88,6 +88,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
 
+                <!-- App to generate records as files into default dir sink ~/tmp/streaming/in/ -->
                 <executions>
                     <execution>
                         <id>generate-records-in-files</id>
@@ -97,12 +98,14 @@
                         <configuration>
                             <mainClass>net.jgp.books.spark.ch10.x.utils.streaming.app.RecordsInFilesGeneratorApp
                             </mainClass>
+
+                            <!-- no arguments therefore the default dir ~/tmp/streaming/in/s1/ will be used as sink -->
                         </configuration>
                     </execution>
 
-                    <!-- App to generate records to be consumed later -->
+                    <!-- App to generate records as files into subdir1 sink ~/tmp/streaming/in/s1/ -->
                     <execution>
-                        <id>generate-records-in-files-alt-dir</id>
+                        <id>generate-records-in-files-subdir1</id>
                         <goals>
                             <goal>java</goal>
                         </goals>
@@ -110,8 +113,28 @@
                             <mainClass>net.jgp.books.spark.ch10.x.utils.streaming.app.RecordsInFilesGeneratorApp
                             </mainClass>
                             <arguments>
+
+                                <!-- these argument will cause the ~/tmp/streaming/in/s1/ to be used as sink -->
                                 <argument>--output-directory</argument>
-                                <argument>/tmp/dir2</argument>
+                                <argument>subdir1</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- App to generate records as files into subdir2 sink ~/tmp/streaming/in/s2/ -->
+                    <execution>
+                        <id>generate-records-in-files-subdir2</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>net.jgp.books.spark.ch10.x.utils.streaming.app.RecordsInFilesGeneratorApp
+                            </mainClass>
+                            <arguments>
+
+                                <!-- these argument will cause the ~/tmp/streaming/in/s2/ to be used as sink -->
+                                <argument>--output-directory</argument>
+                                <argument>subdir2</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -173,9 +196,6 @@
                     </execution>
 
                 </executions>
- <!--               <configuration>
-                    <executable>${java11.home}/bin/java</executable>
-                </configuration>-->
             </plugin>
         </plugins>
     </build>
