@@ -34,7 +34,7 @@ public class ReadLinesFromNetworkStreamApp {
 
     Dataset<Row> df = spark
         .readStream()
-        .format("socket")
+        .format("socket") // this time listen to a network socket
         .option("host", "localhost")
         .option("port", 9999)
         .load();
@@ -43,10 +43,11 @@ public class ReadLinesFromNetworkStreamApp {
         .writeStream()
         .outputMode(OutputMode.Append())
         .format("console")
+        .option("truncate", false)  // Let's not truncate our lines of wonderful correspondence
         .start();
 
     try {
-      query.awaitTermination(60000);
+      query.awaitTermination(90000); // 1.5 minutes
     } catch (StreamingQueryException e) {
       log.error(
           "Exception while waiting for query to end {}.",
